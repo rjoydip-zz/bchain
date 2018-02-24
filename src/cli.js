@@ -15,6 +15,7 @@ class CLI {
       .use(this.blockchainCommand)
       .use(this.peersCommand)
       .use(this.mineCommand)
+      .use(this.addBlockCommand)
       .use(this.openCommand)
       .delimiter(`${pkg.name} >>`)
       .show()
@@ -65,11 +66,23 @@ class CLI {
 
   mineCommand(vorpal) {
     vorpal
-      .command('mine <data>', 'Mine a new block. Eg: mine hello!')
+      .command('mine <data>', 'Mine a new block.')
       .alias('m')
       .action(function (args, callback) {
         if (args.data) {
-          p2p.mineAndBroadcast(args.data);
+          p2p.mine(args.data);
+        }
+        callback();
+      });
+  }
+  
+  addBlockCommand(vorpal) {
+    vorpal
+      .command('addBlock <data>', 'Add a new block.')
+      .alias('ab')
+      .action(function (args, callback) {
+        if (args.data) {
+          p2p.addBlock(args.data);
         }
         callback();
       });

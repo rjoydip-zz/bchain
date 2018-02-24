@@ -21,13 +21,14 @@ class P2P {
           } else {
             conn.on("data", data => {
               const payload = JSON.parse(data.toString("utf8"));
-              this.handleMessage(conn, payload);
+              this.handleMessage(payload);
             });
+
             conn.on("error", err => {
               throw err;
             });
           }
-        });
+        })
       ).listen(port);
   }
 
@@ -42,12 +43,8 @@ class P2P {
     })
   }
 
-  mineAndBroadcast(payload) {
+  mine(payload) {
     this.blockchain.mine(payload);
-    this.broadcast(this.blockchain.latestBlock);
-  }
-
-  broadcast(payload) {
     this.peers.forEach(peer => this.write(peer, payload));
   }
 
@@ -63,24 +60,16 @@ class P2P {
         this.peers.push(connection);
       }
     }
-    this.write(connection, this.blockchain);
   }
 
-  handleMessage(peer, payload) {
-    const receivedBlock = Boolean(payload.blockchain) ? payload.blockchain : payload;
-    const latestBlock = this.blockchain.latestBlock;
+  addBlock(payload) {
+    this.handleMessage(payload);
+  }
 
-    if (latestBlock.hash === receivedBlock.previousHash) {
-      try {
-        this.blockchain.addBlock(receivedBlock);
-      } catch (err) {
-        throw err;
-      }
-    } else if (receivedBlock.index > latestBlock.index) {
-      this.blockchain.replaceChain(receivedBlock);
-    } else {
-      // Do nothing.
-    }
+  handleMessage(payload) {
+    const data = Boolean(payload.blockchain) ? payload.blockchain : payload;
+    this.blockchain.mine(data);
+    this.peers.forEach(peer => this.write(peer, data));
   }
 }
 
