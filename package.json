@@ -1,0 +1,18 @@
+{
+  "name": "bchain",
+  "version": "2.0.0",
+  "description": "BChain command-line interface",
+  "main": "index.js",
+  "title": "BChain",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "Rjoydip (Joydip Roy)",
+  "license": "ISC",
+  "dependencies": {
+    "peer-exchange": "^2.2.0",
+    "read-pkg": "^3.0.0",
+    "vorpal": "^1.12.0",
+    "wrtc": "0.0.63"
+  }
+}
