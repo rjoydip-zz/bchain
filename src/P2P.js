@@ -1,10 +1,12 @@
 const wrtc = require("wrtc");
 const Exchange = require("peer-exchange");
 const net = require("net");
+const readPkg = require('read-pkg');
 
-const p2p = new Exchange("BChain Demo", { wrtc: wrtc });
+const pkg = readPkg.sync();
+const p2p = new Exchange(`${pkg.name}`, { wrtc: wrtc });
 
-class PeerToPeer {
+class P2P {
   constructor(blockchain) {
     this.peers = [];
     this.blockchain = blockchain;
@@ -21,14 +23,12 @@ class PeerToPeer {
               const payload = JSON.parse(data.toString("utf8"));
               this.handleMessage(conn, payload);
             });
-
             conn.on("error", err => {
               throw err;
             });
           }
-        })
-      )
-      .listen(port);
+        });
+      ).listen(port);
   }
 
   connectToPeer(host, port) {
@@ -40,12 +40,6 @@ class PeerToPeer {
         this.initConnection(conn);
       }
     })
-  }
-
-  closeConnection() {
-    p2p.close(err => {
-      throw err;
-    });
   }
 
   mineAndBroadcast(payload) {
@@ -90,4 +84,4 @@ class PeerToPeer {
   }
 }
 
-module.exports = PeerToPeer;
+module.exports = P2P;

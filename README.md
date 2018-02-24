@@ -1,19 +1,15 @@
-<h1 align="center">
-  BChain Demo  
-  
-  Code for learning the blockchain data structure via CLI
-</h1>
+<div align="center">
+  <h1>BChain</h1>
+  <h3>Code for learning the blockchain data structure via CLI</h3>
+</div>
 
 ### 📦 Installation
 
-To install this application, you'll need
-[Node.js](https://nodejs.org/en/download) 7+ (which comes with
-[npm](http://npmjs.com)) installed on your computer. From your command line:
+To install this application, you'll need [Node.js](https://nodejs.org/en/download) 7+ (which comes with[npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ### Source
 
-You'll need [Git](https://git-scm.com) to run the project from source. From your
-command line:
+You'll need [Git](https://git-scm.com) to run the project from source. From your command line:
 
 ```bash
 # Clone this repository

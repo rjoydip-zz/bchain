@@ -1,4 +1,3 @@
-
 const readPkg = require('read-pkg');
 
 const P2P = require("./P2P.js");
@@ -28,7 +27,7 @@ class CLI {
 
   connectCommand(vorpal) {
     vorpal
-      .command('connect <host> <port>', "Connect to a new peer. Eg: connect localhost 2727")
+      .command('connect <host> <port>', "Connect to a new peer.")
       .alias('c')
       .action(function (args, callback) {
         if (args.host && args.port) {
@@ -39,7 +38,7 @@ class CLI {
           }
         }
         callback();
-      })
+      });
   }
 
   blockchainCommand(vorpal) {
@@ -49,7 +48,7 @@ class CLI {
       .action(function (args, callback) {
         this.log(blockchain)
         callback();
-      })
+      });
   }
 
   peersCommand(vorpal) {
@@ -61,7 +60,7 @@ class CLI {
           this.log(`${peer.pxpPeer.socket._host}`)
         }, this) : this.log(`No peers connected`);
         callback();
-      })
+      });
   }
 
   mineCommand(vorpal) {
@@ -73,12 +72,12 @@ class CLI {
           p2p.mineAndBroadcast(args.data);
         }
         callback();
-      })
+      });
   }
 
   openCommand(vorpal) {
     vorpal
-      .command('open <port>', 'Open port to accept incoming connections. Eg: open 2727')
+      .command('open <port>', 'Open port to accept incoming connections.')
       .alias('o')
       .action(function (args, callback) {
         if (args.port) {
@@ -90,7 +89,7 @@ class CLI {
           }
         }
         callback();
-      })
+      });
   }
 }
 
